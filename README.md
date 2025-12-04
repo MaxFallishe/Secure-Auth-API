@@ -1,6 +1,6 @@
 # Secure-Auth-API
 
-![Python](https://img.shields.io/badge/Python-3.13-blue?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge)
 ![Flask](https://img.shields.io/badge/Flask-3.x-lightgrey?style=for-the-badge)
 ![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.x-red?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
