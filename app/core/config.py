@@ -19,7 +19,18 @@ class BaseConfig:
 
     # Переменные для настройки документации к приложению
     OPENAPI_VERSION = "3.0.3"
-    API_TITLE = "City Quest API"
+    API_TITLE = "Secure Auth API"
+    API_DESCRIPTION = """
+    Напоминание
+
+    Для доступа к защищённым маршрутам (ошибка 401) необходимо:
+    1. Вызвать **POST /auth/login** и получить access_token  
+    2. Нажать кнопку **Authorize** справа сверху  
+    3. Вставить полученный токен
+    
+    После этого все защищённые эндпоинты станут доступны.
+    """
+
     API_VERSION = "1.0.0"
 
     OPENAPI_URL_PREFIX = "/"

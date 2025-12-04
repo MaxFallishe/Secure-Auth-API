@@ -17,17 +17,12 @@ blp = Blueprint(
 )
 
 
-@blp.get("/ping")
-@blp.doc(security=[])
-def ping_auth():
-    return {"auth": "ok"}
-
-
 @blp.post("/login")
 @blp.arguments(LoginSchema)
 @blp.response(200, LoginResponseSchema)
 @blp.doc(security=[])
 def login(data):
+    """Эндпоинт для авторизации пользователя."""
     email = data["email"]
     password = data["password"]
 
@@ -47,6 +42,7 @@ def login(data):
 @jwt_required()
 @blp.doc(security=[{"BearerAuth": []}])
 def me():
+    """Эндпоинт для проверки текущего активного аккаунта пользователя."""
     identity = get_jwt_identity()
     user = User.query.get(int(identity))
     return {
@@ -61,6 +57,10 @@ def me():
 @require_role("admin")
 @blp.doc(security=[{"BearerAuth": []}])
 def admin_only():
+    """
+    Эндпоинт для проверки что текущий пользователь имеет роль `admin`.
+    Только администратор может получить доступ к этому эндпоинты
+    """
     return {"message": "Welcome, admin!"}
 
 
@@ -68,6 +68,7 @@ def admin_only():
 @require_role("user", "admin")
 @blp.doc(security=[{"BearerAuth": []}])
 def user_area():
+    """Эндпоинт для проверки что текущий пользователь имеет роль `admin` или `user`"""
     return {"message": "Hello, user or admin!"}
 
 
@@ -75,6 +76,7 @@ def user_area():
 @jwt_required()
 @blp.doc(security=[{"BearerAuth": []}])
 def logout():
+    """Эндпоинт для корректного логаута аккаунта."""
     revoke_current_token()
     return {"message": "Token revoked"}, 200
 
@@ -83,6 +85,7 @@ def logout():
 @jwt_required(refresh=True)
 @blp.doc(security=[{"BearerAuth": []}])
 def logout_refresh():
+    """Эндпоинт отзыва текущего токена."""
     revoke_current_token()
     return {"message": "Refresh token revoked"}, 200
 
@@ -91,6 +94,7 @@ def logout_refresh():
 @jwt_required(refresh=True)
 @blp.doc(security=[{"BearerAuth": []}])
 def refresh():
+    """Эндпоинт для рефреша токена."""
     revoke_current_token()
     identity = get_jwt_identity()
     tokens = generate_tokens(identity=str(identity))

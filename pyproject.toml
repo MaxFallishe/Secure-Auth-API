@@ -15,20 +15,15 @@ dependencies = [
     "flask-migrate>=4.1.0",
     "flask-smorest>=0.46.2",
     "flask-sqlalchemy>=3.1.1",
+    "gunicorn>=23.0.0",
     "hatchling>=1.28.0",
     "marshmallow>=4.1.0",
     "marshmallow-sqlalchemy>=1.4.2",
     "passlib[argon2,bcrypt]>=1.7.4",
+    "python-dotenv>=1.2.1",
     "ruff>=0.14.8",
     "sqlalchemy>=2.0.44",
 ]
 
 [project.scripts]
 secure-auth-api = "secure_auth_api:main"
-
-[tool.hatch.build.targets.wheel]
-packages = ["app"]
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"

@@ -19,18 +19,13 @@ blp = Blueprint(
 )
 
 
-@blp.get("/ping")
-@blp.doc(security=[])
-def ping_quests():
-    return {"quests": "ok"}
-
-
 @blp.post("/")
 @require_role("admin")
 @blp.arguments(QuestCreateSchema)
 @blp.response(201, QuestSchema)
 @blp.doc(security=[{"BearerAuth": []}])
 def create(data):
+    """Эндпоинт для создание квеста. Создать квест может только администратор."""
     quest = create_quest(
         title=data["title"],
         description=data.get("description"),
@@ -43,6 +38,7 @@ def create(data):
 @blp.response(200, QuestSchema(many=True))
 @blp.doc(security=[{"BearerAuth": []}])
 def list_quests():
+    """Эндпоинт для получения всех квестов."""
     return get_all_quests()
 
 
@@ -51,6 +47,7 @@ def list_quests():
 @blp.response(200, QuestSchema)
 @blp.doc(security=[{"BearerAuth": []}])
 def get_one(quest_id):
+    """Эндпоинт для получения квеста по идентификатору."""
     quest = get_quest_by_id(quest_id)
     if not quest:
         return jsonify({"error": "Quest not found"}), 404
@@ -62,6 +59,7 @@ def get_one(quest_id):
 @blp.response(200, description="Quest deleted")
 @blp.doc(security=[{"BearerAuth": []}])
 def delete(quest_id):
+    """Эндпоинт для удаления квеста. Удалить квест может только администратор."""
     if not delete_quest(quest_id):
         return jsonify({"error": "Quest not found"}), 404
     return {"status": "deleted"}

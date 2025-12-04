@@ -1,5 +1,12 @@
 # Secure-Auth-API
 
+![Python](https://img.shields.io/badge/Python-3.13-blue?style=for-the-badge)
+![Flask](https://img.shields.io/badge/Flask-3.x-lightgrey?style=for-the-badge)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.x-red?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![UV](https://img.shields.io/badge/Package_Manager-UV-orange?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-ready-blue?style=for-the-badge)
+
 Пример backend-приложения на **Flask + SQLAlchemy + SQLite**. 
 Реализованный функционал:
 - регистрации и аутентификации пользователей (JWT)
@@ -80,9 +87,10 @@ uv run ruff check .
 Если ошибок нет - Ruff работает.
 
 
-##  Шаг 5 - запустить dev-сервер
+##  Шаг 5 - запустить миграции и dev-сервер
 
 ```bash
+uv run alembic upgrade head
 uv run python run.py
 ```
 
@@ -96,11 +104,11 @@ uv run python run.py
 
 # Продакшен запуск
 
-Продакшен можно собирать через **gunicorn** или **uvicorn (через WSGI)**.  
+Продакшен можно собрать через готовый docker-compose.  
 Например:
 
 ```bash
-uv run gunicorn "run:app" --bind 0.0.0.0:8000 --workers 4
+docker compose up -d --build
 ```
 
 ---
